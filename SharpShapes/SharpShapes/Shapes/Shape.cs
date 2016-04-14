@@ -11,5 +11,6 @@ namespace SharpShapes.Shapes
         public int numberOfSides { get; set; }
 
         public string name { get; set; }
+
     }
 }
