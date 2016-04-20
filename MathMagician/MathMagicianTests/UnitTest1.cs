@@ -10,9 +10,8 @@ namespace MathMagicianTests
     [TestClass]
     public class UnitTest1
     {
-        //private object result;
 
-        [TestMethod]
+        [TestMethod] // pass
         public void ProduceFibonacciNumbers()
         {
             Fibonacci fibs = new Fibonacci();
@@ -20,17 +19,15 @@ namespace MathMagicianTests
             CollectionAssert.AreEqual(actual.ToArray(), new int[] {1, 1, 2, 3, 5, 8, 13, 21 });
         }
 
-        //[TestMethod]
-        //public void ProducePrimeNumbers()
-        //{
-        //    for (int i = 0; i < 20; i++)
-        //    {
-        //        printPrime();
-        //    }
-        //    Assert.AreEqual(result.ToArray, new int[] { 3, 5, 7, 11, 13, 17, 19 });
-        //}
+        [TestMethod] // fail
+        public void ProducePrimeNumbers()
+        {
+            Prime primes = new Prime();
+            var actual = primes.createPrimesList();
+            CollectionAssert.AreEqual(actual.ToArray(), new int[] { 3, 5, 7, 11, 13, 17, 19 });
+        }
 
-        [TestMethod]
+        [TestMethod] // pass
         public void ProduceIntegers()
         {
             Integer ints = new Integer();

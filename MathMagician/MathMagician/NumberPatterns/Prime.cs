@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MathMagician.NumberPatterns
 {
-    class Prime : Integer
+    public class Prime : Integer
     {
         public List<int> allPrimes { get; set; }
         public Prime()

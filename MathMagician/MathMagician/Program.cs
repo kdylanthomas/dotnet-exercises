@@ -9,8 +9,6 @@ namespace MathMagician
 {
     class Program
     {
-
-
         static void Main(string[] args)
         {
             Console.WriteLine("I am the Math Magician. What would you like me to do?");
