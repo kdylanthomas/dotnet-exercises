@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MathMagician.NumberPatterns
@@ -23,13 +24,8 @@ namespace MathMagician.NumberPatterns
             allFibonaccis.Add(initial);
             allFibonaccis.Add(initial);
 
-            while (keepGoing == true)
+            while (i < 100000)
             {
-                if (i > 20) // temporary way to manage limit until I implement readkey
-                {
-                    keepGoing = false;
-                    break;
-                }
                 var currFibArr = allFibonaccis.ToArray();
                 int currLength = currFibArr.Length;
                 int firstNumber = currFibArr[currLength - 2];
@@ -37,6 +33,13 @@ namespace MathMagician.NumberPatterns
                 i = firstNumber + secondNumber;
                 allFibonaccis.Add(i);
             }
+
+            foreach (int item in allFibonaccis)
+            {
+                Console.WriteLine(item);
+                Thread.Sleep(500);
+            }
+            Console.ReadLine();
             return allFibonaccis;
         }
 
