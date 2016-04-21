@@ -19,12 +19,12 @@ namespace MathMagicianTests
             CollectionAssert.AreEqual(actual.ToArray(), new int[] {1, 1, 2, 3, 5, 8, 13, 21 });
         }
 
-        [TestMethod] // fail
+        [TestMethod] // pass
         public void ProducePrimeNumbers()
         {
             Prime primes = new Prime();
             var actual = primes.createPrimesList();
-            CollectionAssert.AreEqual(actual.ToArray(), new int[] { 3, 5, 7, 11, 13, 17, 19 });
+            CollectionAssert.AreEqual(actual.ToArray(), new int[] { 2, 3, 5, 7, 11, 13, 17, 19 });
         }
 
         [TestMethod] // pass
