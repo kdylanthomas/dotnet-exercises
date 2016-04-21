@@ -11,34 +11,30 @@ namespace MathMagician
     {
         static void Main(string[] args)
         {
-            //Console.WriteLine("I am the Math Magician. What would you like me to do?");
-            //Console.WriteLine("Choose integers, primes, or fibonaccis.");
-            //string userInput = Console.ReadLine();
+            Console.WriteLine("I am the Math Magician. What would you like me to do?");
+            Console.WriteLine("Choose integers, primes, or fibonaccis.");
+            string userInput = Console.ReadLine();
 
-            //switch (userInput)
-            //{
-            //    case "integers":
-            //        break;
-            //    case "primes":
-            //        break;
-            //    case "fibonaccis":
-            //        break;
-            //    default:
-            //        throw new ArgumentOutOfRangeException();
-            //}
-        
-            //Console.WriteLine("Press any key to exit.");
-            //var quit = Console.ReadKey();
-            //if (quit != null) Environment.Exit(0);
+            Console.WriteLine("Ok, I'm going to help produce {0}. \nPress CTRL + C to exit.", userInput);
 
-            //Integer ints = new Integer();
-            //ints.createIntegerList();
-            //Fibonacci fibs = new Fibonacci();
-            //fibs.createFibonacciList();
-            Prime primes = new Prime();
-            primes.createPrimesList();
-            // Main should take user input and determine
-            // which method to run based on input
+            switch (userInput)
+            {
+                case "integers":
+                    Integer ints = new Integer();
+                    ints.createIntegerList();
+                    break;
+                case "primes":
+                    Prime primes = new Prime();
+                    primes.createPrimesList();
+                    break;
+                case "fibonaccis":
+                    Fibonacci fibs = new Fibonacci();
+                    fibs.createFibonacciList();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
         }
 
     }

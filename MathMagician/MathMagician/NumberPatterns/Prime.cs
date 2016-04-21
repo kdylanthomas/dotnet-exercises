@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MathMagician.NumberPatterns
@@ -11,13 +12,14 @@ namespace MathMagician.NumberPatterns
         public List<int> allPrimes { get; set; }
         public Prime()
         {
-            initial = 1;
+            initial = 2; // start testing with 2; 1 doesn't count as prime number
             allPrimes = new List<int>();
         }
 
         public List<int> createPrimesList()
         {
-            for (int i = 2; i < 20; i++) // temporary limit
+
+            for (int i = 2; i < 100000; i++) // temporary limit
             {
                 int max = (int)(Math.Floor(Math.Sqrt(i)));
                 bool isPotentiallyPrime = true;
@@ -26,25 +28,21 @@ namespace MathMagician.NumberPatterns
                     for (int j = 2; j <= max; j++)
                     {
                         double x = (double)i / (double)j;
-
                         bool hasRemainder = (x - Math.Round(x) != 0) ? true : false;
 
                         if (hasRemainder == false)
                         {
                             isPotentiallyPrime = false;
-                            // Console.WriteLine("{0} isn't a prime number.", i, j);
                             break;
                         }
-                        else if (hasRemainder == true)
+                        else
                         {
                             isPotentiallyPrime = true;
                             if (j == max)
                             {
-                                // Console.WriteLine("{0} is a prime number!", i);
                                 allPrimes.Add(i);
                             }
                         }
-                         
                     }
                 }
                 else
@@ -52,13 +50,11 @@ namespace MathMagician.NumberPatterns
                     if (i % 2 == 0 && i != 2)
                     {
                         isPotentiallyPrime = false;
-                        // Console.WriteLine("{0} isn't a prime number.", i);
                     }
                     else
                     {
                         isPotentiallyPrime = true;
                         allPrimes.Add(i);
-                        // Console.WriteLine("{0} is a prime number!", i);
                     }
                 }
 
@@ -66,7 +62,9 @@ namespace MathMagician.NumberPatterns
             foreach (int item in allPrimes)
             {
                 Console.WriteLine(item);
+                Thread.Sleep(500);
             }
+
             Console.ReadLine();
             return allPrimes;
         }

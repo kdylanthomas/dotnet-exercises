@@ -2,9 +2,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MathMagician.NumberPatterns;
 
-// program should produce Fibonnaci #s, prime #s, or integers, infinitely
-// test w/o infinite loop?
-
 namespace MathMagicianTests
 {
     [TestClass]
