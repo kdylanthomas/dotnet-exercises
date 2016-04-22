@@ -37,6 +37,13 @@ namespace SimpleCalculator
             return a / b;
         }
 
+        public double modulo(string x, string y)
+        {
+            double a = Convert.ToDouble(x);
+            double b = Convert.ToDouble(y);
+            return a % b;
+        }
+
         public MathMethods()
         {
         }
