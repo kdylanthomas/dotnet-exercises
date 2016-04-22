@@ -55,6 +55,7 @@
     <Compile Include="ExpressionClass.cs" />
     <Compile Include="MathMethodClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StackClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SimpleCalculator\SimpleCalculator.csproj">
