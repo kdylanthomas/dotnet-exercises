@@ -17,6 +17,7 @@ namespace SimpleCalculator
         public double lastA { get; set; }
         public int idx { get; set; }
         public Stack()
+
         {
             idx = 0;
         }
