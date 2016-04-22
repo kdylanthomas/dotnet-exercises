@@ -33,7 +33,7 @@ namespace SimpleCalculator
                 {
                     secondArgument += splitExp[i];
                 }
-                else if (new Regex("[+*-/=]").IsMatch(splitExp[i].ToString()))
+                else if (new Regex("[+*-/=%]").IsMatch(splitExp[i].ToString()))
                 {
                     if (firstArgument == null) throw new System.Exception();
                     else

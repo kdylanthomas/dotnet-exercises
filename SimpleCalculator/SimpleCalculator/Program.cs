@@ -57,7 +57,11 @@ namespace SimpleCalculator
                             stack.lastA = methods.divide(exp.firstArgument, exp.secondArgument);
                             Console.WriteLine("= " + stack.lastA);
                             break;
-                        case "=":
+                        case "%":
+                            stack.lastA = methods.modulo(exp.firstArgument, exp.secondArgument);
+                            Console.WriteLine("= " + stack.lastA);
+                            break;
+                        case "=": // leaving this here for when i manage constants
                             Console.WriteLine(exp.mathOperator);
                             break;
                     }
