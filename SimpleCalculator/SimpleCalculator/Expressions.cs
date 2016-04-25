@@ -25,8 +25,9 @@ namespace SimpleCalculator
             // push numbers into second argument after operator
             for (int i = 0; i < splitExp.Length; i++)
             {
-                if (new Regex("[0-9 ]").IsMatch(splitExp[i].ToString()) && mathOperator == null)
+                if (new Regex("[0-9a-zA-Z ]").IsMatch(splitExp[i].ToString()) && mathOperator == null)
                 {
+                    // now allows first argument to be a variable
                     firstArgument += splitExp[i];
                 }
                 else if (new Regex("[0-9 ]").IsMatch(splitExp[i].ToString()) && mathOperator != null)

@@ -16,10 +16,12 @@ namespace SimpleCalculator
         public string lastQ { get; set; }
         public double lastA { get; set; }
         public int idx { get; set; }
-        public Stack()
+        public List<KeyValuePair<char, double>> UserConstants { get; set; }
 
+        public Stack()
         {
             idx = 0;
+            UserConstants = new List<KeyValuePair<char, double>>();
         }
     }
 }

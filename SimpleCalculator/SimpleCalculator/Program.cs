@@ -18,7 +18,8 @@ namespace SimpleCalculator
                 Expressions exp = new Expressions();
                 MathMethods methods = new MathMethods();
                 Console.Write("[{0}]> ", stack.idx);
-                string userInput = Console.ReadLine(); 
+                string userInput = Console.ReadLine();
+               
 
                 if (userInput.ToUpper() == "EXIT" || userInput.ToUpper() == "QUIT")
                 {
@@ -61,8 +62,14 @@ namespace SimpleCalculator
                             stack.lastA = methods.modulo(exp.firstArgument, exp.secondArgument);
                             Console.WriteLine("= " + stack.lastA);
                             break;
-                        case "=": // leaving this here for when i manage constants
-                            Console.WriteLine(exp.mathOperator);
+                        case "=": 
+                            var kvp = methods.assignVariable(exp.firstArgument, exp.secondArgument);
+                            if (!stack.UserConstants.Exists(x => x.Key == kvp.Key))
+                            {
+                                stack.UserConstants.Add(kvp);
+                                Console.WriteLine("saved {0} as {1}", exp.firstArgument, exp.secondArgument);
+                            }
+                            else Console.WriteLine("This variable cannot be reassigned.");
                             break;
                     }
                     stack.idx++;

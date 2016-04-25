@@ -44,6 +44,12 @@ namespace SimpleCalculator
             return a % b;
         }
 
+        public KeyValuePair<char,double> assignVariable(string x, string y)
+        {
+            char a = Convert.ToChar(x.Trim());
+            double b = Convert.ToDouble(y);
+            return new KeyValuePair<char,double>(a, b);
+        }
         public MathMethods()
         {
         }
