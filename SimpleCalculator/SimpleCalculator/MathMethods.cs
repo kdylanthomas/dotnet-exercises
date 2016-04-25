@@ -8,7 +8,6 @@ namespace SimpleCalculator
 {
     public class MathMethods
     {
-
         public double add(string x, string y)
         {
             double a = Convert.ToDouble(x);
