@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace SimpleCalculator
@@ -19,7 +20,7 @@ namespace SimpleCalculator
                 MathMethods methods = new MathMethods();
                 Console.Write("[{0}]> ", stack.idx);
                 string userInput = Console.ReadLine();
-               
+
 
                 if (userInput.ToUpper() == "EXIT" || userInput.ToUpper() == "QUIT")
                 {
@@ -40,6 +41,21 @@ namespace SimpleCalculator
                 {
                     exp.parseExpression(userInput);
                     stack.lastQ = userInput;
+
+                    // needs to look for exp.firstArgument & exp.SecondArgument in KVP list
+                    // if it finds one of those as a kvp.Key, replace exp.F or exp.S with kvp.Value before doing math
+                    foreach (KeyValuePair<char, double> kvp in stack.UserConstants)
+                    {
+                        if (Convert.ToChar(exp.firstArgument.Trim()).Equals(kvp.Key))
+                        {
+                            exp.firstArgument = kvp.Value.ToString();
+                        }
+                        else if (Convert.ToChar(exp.secondArgument.Trim()).Equals(kvp.Key))
+                        {
+                            exp.secondArgument = kvp.Value.ToString();
+                        }
+                    }
+
                     switch (exp.mathOperator)
                     {
                         case "+":
