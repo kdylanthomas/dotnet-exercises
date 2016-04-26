@@ -29,7 +29,8 @@ namespace BagOLoot
                 new KeyValuePair<string, string>("remove", "use in combination with a child and a toy to remove toy from a child's list, e.g. 'remove joey baseball'"),
                 new KeyValuePair<string, string>("ls (as only argument)", "show current list of children"),
                 new KeyValuePair<string, string>("ls [child]", "show list of toys for a child, e.g. 'ls suzy'"),
-                new KeyValuePair<string, string>("ls delivered [child]", "change a child's Toys Delivered status to True")
+                new KeyValuePair<string, string>("ls delivered [child]", "change a child's Toys Delivered status to True"),
+                new KeyValuePair<string, string>("ruinxmas [child]", "deletes all of a child's toys, e.g. 'ruinxmas suzy'")
             };
 
             switch (args[0].ToUpper())
