@@ -45,7 +45,7 @@ namespace SimpleCalculator
 
         public KeyValuePair<char,double> assignVariable(string x, string y)
         {
-            char a = Convert.ToChar(x.Trim());
+            char a = Convert.ToChar(x.Trim().ToLower());
             double b = Convert.ToDouble(y);
             return new KeyValuePair<char,double>(a, b);
         }

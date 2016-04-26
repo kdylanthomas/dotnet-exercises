@@ -29,6 +29,20 @@ namespace SimpleCalculator
                     keepGoing = false;
                     break;
                 }
+                else if (userInput.Length == 1 && (new Regex("[a-zA-Z]").IsMatch(userInput)))
+                {
+                    foreach (KeyValuePair<char, double> kvp in stack.UserConstants)
+                    {
+                        if (Convert.ToChar(userInput).Equals(kvp.Key))
+                        {
+                            Console.WriteLine(kvp.Value);
+                        }
+                        else if (kvp.Key == stack.UserConstants.Last().Key && !userInput.Equals(kvp.Key))
+                        {
+                            Console.WriteLine("{0} is undefined.", userInput);
+                        }
+                    }
+                }
                 else if (userInput.ToUpper() == "LAST")
                 {
                     Console.WriteLine(stack.lastA);
@@ -46,11 +60,11 @@ namespace SimpleCalculator
                     // if it finds one of those as a kvp.Key, replace exp.F or exp.S with kvp.Value before doing math
                     foreach (KeyValuePair<char, double> kvp in stack.UserConstants)
                     {
-                        if (Convert.ToChar(exp.firstArgument.Trim()).Equals(kvp.Key))
+                        if (Convert.ToChar(exp.firstArgument.Trim()).Equals(kvp.Key) && exp.mathOperator != "=")
                         {
                             exp.firstArgument = kvp.Value.ToString();
                         }
-                        else if (Convert.ToChar(exp.secondArgument.Trim()).Equals(kvp.Key))
+                        else if (Convert.ToChar(exp.secondArgument.Trim()).Equals(kvp.Key) && exp.mathOperator != "=")
                         {
                             exp.secondArgument = kvp.Value.ToString();
                         }
@@ -78,7 +92,7 @@ namespace SimpleCalculator
                             stack.lastA = methods.modulo(exp.firstArgument, exp.secondArgument);
                             Console.WriteLine("= " + stack.lastA);
                             break;
-                        case "=": 
+                        case "=":
                             var kvp = methods.assignVariable(exp.firstArgument, exp.secondArgument);
                             if (!stack.UserConstants.Exists(x => x.Key == kvp.Key))
                             {
