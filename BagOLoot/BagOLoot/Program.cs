@@ -23,6 +23,15 @@ namespace BagOLoot
             lootBag.ChildrenWithToys.Add(suzy);
             lootBag.ChildrenWithToys.Add(joey);
 
+            List<KeyValuePair<string, string>> Help = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>("add" , "use in combination with a child and a toy to add a toy to a child's list, e.g. 'add suzy train'"),
+                new KeyValuePair<string, string>("remove", "use in combination with a child and a toy to remove toy from a child's list, e.g. 'remove joey baseball'"),
+                new KeyValuePair<string, string>("ls (as only argument)", "show current list of children"),
+                new KeyValuePair<string, string>("ls [child]", "show list of toys for a child, e.g. 'ls suzy'"),
+                new KeyValuePair<string, string>("ls delivered [child]", "change a child's Toys Delivered status to True")
+            };
+
             switch (args[0].ToUpper())
             {
                 case "ADD":
@@ -33,7 +42,6 @@ namespace BagOLoot
                         {
                             lootBag.Add(child, args[2]);
                             Console.WriteLine("added {0} to {1}'s list", args[2], child.Name);
-                            Console.WriteLine(child.Toys.Count);
                             childFound = true;
                         }
 
@@ -103,11 +111,33 @@ namespace BagOLoot
                         }
                     }
                     break;
+                case "RUINXMAS":
+                    childFound = false;
+                    foreach (Child child in lootBag.ChildrenWithToys)
+                    {
+                        if (child.Name.ToLower() == args[1].ToLower())
+                        {
+                            child.Toys.Clear();
+                            Console.WriteLine("{0} now has {1} toys. :(", child.Name, child.Toys.Count);
+                            childFound = true;
+                        }
+                    }
+                    if (childFound == false)
+                    {
+                        Console.WriteLine("who dat?");
+                    }
+                    break;
+                case "HELP":
+                    foreach (KeyValuePair<string, string> cmd in Help)
+                    {
+                        Console.WriteLine(cmd.Key + ": " + cmd.Value);
+                        Console.WriteLine("");
+                    }
+                    break;
                 default:
+                    Console.WriteLine("Command not recognized.");
                     break;
             }
-            
-
         }
     }
 }
