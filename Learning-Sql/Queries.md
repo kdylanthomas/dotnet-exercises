@@ -1,11 +1,12 @@
-[1]
-<!-- Provide a query showing Customers (just their full names, customer ID and country) who are not in the US. -->
+**[1] Provide a query showing Customers (just their full names, customer ID and country) who are not in the US.**
+```SQL
 SELECT
  FirstName|| " " ||LastName AS FullName,
  CustomerId,
  Country
 FROM Customer
 WHERE Country != 'USA';
+```
 
 [2]
 <!-- Provide a query only showing the Customers from Brazil. -->
