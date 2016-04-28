@@ -8,13 +8,14 @@ FROM Customer
 WHERE Country != 'USA';
 ```
 
-[2]
-<!-- Provide a query only showing the Customers from Brazil. -->
+**[2] Provide a query only showing the Customers from Brazil.**
+```SQL
 SELECT * FROM Customer
 WHERE Country = 'Brazil';
+```
 
-[3]
-<!-- Provide a query showing the Invoices of customers who are from Brazil. The resultant table should show the customer's full name, Invoice ID, Date of the invoice and billing country. -->
+**[3] Provide a query showing the Invoices of customers who are from Brazil. The resultant table should show the customer's full name, Invoice ID, Date of the invoice and billing country.**
+```SQL
 SELECT
  c.FirstName|| " " ||c.LastName AS FullName,
  i.InvoiceId,
@@ -23,24 +24,28 @@ SELECT
 FROM Customer c
 INNER JOIN Invoice i ON i.CustomerId = c.CustomerId
 WHERE c.Country = 'Brazil';
+```
 
-[4]
-<!-- Provide a query showing only the Employees who are Sales Agents. -->
+**[4] Provide a query showing only the Employees who are Sales Agents.**
+```SQL
 SELECT * FROM Employee
 WHERE Title = 'Sales Support Agent';
+```
 
-[5]
-<!-- Provide a query showing a unique list of billing countries from the Invoice table. -->
+**[5] Provide a query showing a unique list of billing countries from the Invoice table.**
+```SQL 
 SELECT DISTINCT BillingCountry FROM Invoice;
+```
 
-[6]
-<!-- Provide a query that shows the invoices associated with each sales agent. The resultant table should include the Sales Agent's full name. -->
+**[6] Provide a query that shows the invoices associated with each sales agent. The resultant table should include the Sales Agent's full name.**
+```SQL
 SELECT
  i.invoiceId,
  e.FirstName|| " "||e.LastName as EmployeeName
 FROM Invoice i
 INNER JOIN Customer c ON c.CustomerId = i.CustomerId
 INNER JOIN Employee e ON e.EmployeeId = c.SupportRepId;
+```
 
 [7]
 <!-- Provide a query that shows the Invoice Total, Customer name, Country and Sale Agent name for all invoices and customers. -->
