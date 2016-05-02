@@ -56,7 +56,34 @@ namespace Bangazon
             return customerList;
         }
 
-     
+        public List<Product> GetProducts()
+        {
+            List<Product> productList = new List<Product>();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.Text;
+            cmd.CommandText = "SELECT IdProduct, Name, Description, Price, IdProductType FROM Product";
+            cmd.Connection = _sqlConnection;
+
+            _sqlConnection.Open();
+            using (SqlDataReader dataReader = cmd.ExecuteReader())
+            {
+                while (dataReader.Read())
+                {
+                    Product prod = new Product();
+                    prod.IdProduct = dataReader.GetInt32(0);
+                    prod.Name = dataReader.GetString(1);
+                    prod.Description = dataReader.GetString(2);
+                    prod.Price = dataReader.GetString(3);
+                    prod.IdProductType = dataReader.GetInt32(4);
+
+                    productList.Add(prod);
+                }
+            }
+            _sqlConnection.Close();
+
+            return productList;
+        }
+
         private void UpdateBangazon(string commandString)
         {
             SqlCommand cmd = new SqlCommand();
