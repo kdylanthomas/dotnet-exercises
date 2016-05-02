@@ -33,6 +33,9 @@ namespace Bangazon
                 case "2":
                     AddPaymentOption();
                     break;
+                case "3":
+                    OrderProducts();
+                    break;
                 default:
                     break;
             }
@@ -82,6 +85,24 @@ namespace Bangazon
             po.AccountNumber = Console.ReadLine();
 
             sqlData.CreatePaymentOption(po);
+        }
+
+        public void OrderProducts()
+        {
+            var products = sqlData.GetProducts();
+            var valueForExit = products.Last().IdProduct + 1;
+            int? userInput = null;
+            while (userInput != valueForExit)
+            {
+                Console.WriteLine("Choose a product:");
+                foreach (var p in products)
+                {
+                    Console.WriteLine(p.IdProduct + ". " + p.Name);
+                }
+                Console.Write("... \n" + valueForExit + ". Return to main menu \n");
+                var stringInput = Console.ReadLine();
+                userInput = Convert.ToInt32(stringInput);
+            }
         }
     }
 }
