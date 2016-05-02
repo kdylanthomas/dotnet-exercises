@@ -30,6 +30,9 @@ namespace Bangazon
                 case "1":
                     CreateNewCustomer();
                     break;
+                case "2":
+                    AddPaymentOption();
+                    break;
                 default:
                     break;
             }
@@ -37,8 +40,12 @@ namespace Bangazon
 
         public void CreateNewCustomer()
         {
+            var allCustomers = sqlData.GetCustomers();
+            var count = allCustomers.Last().IdCustomer;
+            Console.WriteLine(count);
+            Console.ReadLine();
             Customer cust = new Customer();
-            cust.IdCustomer = 5;
+            cust.IdCustomer = count + 1;
             Console.WriteLine("Enter first name \n>");
             cust.FirstName = Console.ReadLine();
             Console.WriteLine("Enter last name \n>");
@@ -55,6 +62,26 @@ namespace Bangazon
             cust.PhoneNumber = Console.ReadLine();
 
             sqlData.CreateCustomer(cust);
+        }
+
+        public void AddPaymentOption()
+        {
+            Console.WriteLine("Which customer?");
+            var allCustomers = sqlData.GetCustomers();
+            foreach (var cust in allCustomers)
+            {
+                Console.WriteLine(cust.IdCustomer + ". " + cust.FirstName + " " + cust.LastName);
+            }
+            Console.WriteLine(">");
+            PaymentOption po = new PaymentOption();
+            var id = Console.ReadLine();
+            po.IdCustomer = Convert.ToInt32(id);
+            Console.Write("Enter payment type(e.g.AmEx, Visa, Checking) \n>");
+            po.Name = Console.ReadLine();
+            Console.Write("Enter account number \n>");
+            po.AccountNumber = Console.ReadLine();
+
+            sqlData.CreatePaymentOption(po);
         }
     }
 }
