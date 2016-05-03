@@ -10,10 +10,13 @@ namespace Bangazon
     {
         SqlData sqlData = new SqlData();
 
+        List<int> Cart = new List<int>(); // initialize a cart with 0 items
+
         public void ShowMenu()
         {
             Console.Write(
-@"*********************************************************
+@"
+*********************************************************
 * * Welcome to Bangazon! Command Line Ordering System * *
 *********************************************************
 1.Create an account
@@ -35,6 +38,9 @@ namespace Bangazon
                     break;
                 case "3":
                     OrderProducts();
+                    break;
+                case "4":
+                    CompleteOrder();
                     break;
                 default:
                     break;
@@ -92,6 +98,7 @@ namespace Bangazon
             var products = sqlData.GetProducts();
             var valueForExit = products.Last().IdProduct + 1;
             int? userInput = null;
+
             while (userInput != valueForExit)
             {
                 Console.WriteLine("Choose a product:");
@@ -102,6 +109,23 @@ namespace Bangazon
                 Console.Write("... \n" + valueForExit + ". Return to main menu \n");
                 var stringInput = Console.ReadLine();
                 userInput = Convert.ToInt32(stringInput);
+
+                if (userInput != valueForExit) Cart.Add((int)userInput);
+            }
+
+            if (userInput == valueForExit)
+            {
+                ShowMenu();
+            }
+        }
+
+        public void CompleteOrder()
+        {
+            if (Cart.Count == 0)
+            {
+                Console.WriteLine("Please add some products to your order first. Press any key to return to main menu.");
+                var goBack = Console.ReadKey();
+                if (goBack != null) ShowMenu();
             }
         }
     }
