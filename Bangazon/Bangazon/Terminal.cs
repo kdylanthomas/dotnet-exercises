@@ -42,6 +42,12 @@ namespace Bangazon
                 case "4":
                     CompleteOrder();
                     break;
+                case "5":
+                    SeeProductPopularity();
+                    break;
+                case "6":
+                    Environment.Exit(0);
+                    break;
                 default:
                     break;
             }
@@ -144,7 +150,6 @@ namespace Bangazon
                         var price = Convert.ToDouble(products[0].Price);
                         total += price;
                     }
-
                 }
                 Console.Write("Your total is " + total + ". Ready to check out? \n[Y/N] >");
                 var readyToCheckout = Console.ReadLine();
@@ -198,6 +203,23 @@ namespace Bangazon
                     if (x != null) ShowMenu();
                 }
             }
+        }
+
+        public void SeeProductPopularity()
+        {
+            var productsOrdered = sqlData.GetOrderProductsCount();
+            foreach (var prod in productsOrdered)
+            {
+                // still needs number of unique customers
+                var prodSpecs = sqlData.GetSingleProduct(prod.IdProduct);
+                prod.Name = prodSpecs[0].Name;
+                prod.Price = prodSpecs[0].Price;
+                var total = Convert.ToDouble(prod.Price) * prod.Count;
+                Console.WriteLine(prod.Name + " bought " + prod.Count + " times for a total of $" + total + ".");
+            }
+            Console.WriteLine("-> Press any key to return to main menu\n");
+            var x = Console.ReadLine();
+            if (x != null) ShowMenu();
         }
     }
 }

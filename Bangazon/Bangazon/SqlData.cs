@@ -153,6 +153,37 @@ namespace Bangazon
             return orderProductsList;
         }
 
+        public List<OrderProducts> GetOrderProductsCount()
+        {
+            List<OrderProducts> orderProductsList = new List<OrderProducts>();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.Text;
+            cmd.CommandText = @"SELECT
+            op.IdProduct,
+            COUNT(op.IdProduct)
+            FROM OrderProducts op
+            GROUP BY op.IdProduct;";
+            cmd.Connection = _sqlConnection;
+
+            
+
+            _sqlConnection.Open();
+            using (SqlDataReader dataReader = cmd.ExecuteReader())
+            {
+                while (dataReader.Read())
+                {
+                    OrderProducts op = new OrderProducts();
+                    op.IdProduct = dataReader.GetInt32(0);
+                    op.Count = dataReader.GetInt32(1);
+                   
+                    orderProductsList.Add(op);
+                }
+            }
+            _sqlConnection.Close();
+
+            return orderProductsList;
+        }
+
         public List<CustomerOrder> GetCustomerOrders()
         {
             List<CustomerOrder> ordersList = new List<CustomerOrder>();
