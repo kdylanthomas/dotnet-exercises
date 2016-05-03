@@ -30,6 +30,15 @@ namespace Bangazon
             UpdateBangazon(command);
         }
 
+        public void CreateCustomerOrder(CustomerOrder co)
+        {
+            string command = String.Format("INSERT INTO CustomerOrder (IdCustomerOrder, OrderNumber, DateCreated, IdCustomer, PaymentType, Shipping, IdPaymentOption) VALUES ({0}, '{1}', '{2}', {3}, '{4}', '{5}', {6})", co.IdCustomerOrder, co.OrderNumber, co.DateCreated, co.IdCustomer, co.PaymentType, co.Shipping, co.IdPaymentOption);
+            Console.WriteLine(command);
+            Console.ReadLine();
+            UpdateBangazon(command);
+        }
+
+
         public List<Customer> GetCustomers()
         { //create a list so we can have the data from the customer table
             List<Customer> customerList = new List<Customer>();
@@ -90,6 +99,34 @@ namespace Bangazon
             return productList;
         }
 
+        public List<Product> GetSingleProduct(int id)
+        {
+            List<Product> matchingProduct = new List<Product>();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.Text;
+            cmd.CommandText = "SELECT IdProduct, Name, Description, Price, IdProductType FROM Product WHERE IdProduct = " + id;
+            cmd.Connection = _sqlConnection;
+
+            _sqlConnection.Open();
+            using (SqlDataReader dataReader = cmd.ExecuteReader())
+            {
+                while (dataReader.Read())
+                {
+                    Product prod = new Product();
+                    prod.IdProduct = dataReader.GetInt32(0);
+                    prod.Name = dataReader.GetString(1);
+                    prod.Description = dataReader.GetString(2);
+                    prod.Price = dataReader.GetString(3);
+                    prod.IdProductType = dataReader.GetInt32(4);
+
+                    matchingProduct.Add(prod);
+                }
+            }
+            _sqlConnection.Close();
+
+            return matchingProduct;
+        }
+
         public List<OrderProducts> GetOrderProducts()
         {
             List<OrderProducts> orderProductsList = new List<OrderProducts>();
@@ -132,7 +169,7 @@ namespace Bangazon
                     CustomerOrder co = new CustomerOrder();
                     co.IdCustomerOrder = dataReader.GetInt32(0);
                     co.OrderNumber = dataReader.GetString(1);
-                    co.DateCreated = dataReader.GetDateTime(2);
+                    co.DateCreated = dataReader.GetString(2);
                     co.IdCustomer = dataReader.GetInt32(3);
                     co.PaymentType = dataReader.GetString(4);
                     co.Shipping = dataReader.GetString(5);
@@ -146,6 +183,32 @@ namespace Bangazon
             return ordersList;
         }
 
+        public List<PaymentOption> GetPaymentOptions(int custId)
+        { // gets payment options only for a specific customer
+            List<PaymentOption> paymentOptionList = new List<PaymentOption>();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.Text;
+            cmd.CommandText = "SELECT IdPaymentOption, IdCustomer, Name, AccountNumber FROM PaymentOption WHERE IdCustomer = " + custId;
+            cmd.Connection = _sqlConnection;
+
+            _sqlConnection.Open();
+            using (SqlDataReader dataReader = cmd.ExecuteReader())
+            {
+                while (dataReader.Read())
+                {
+                    PaymentOption po = new PaymentOption();
+                    po.IdPaymentOption = dataReader.GetInt32(0);
+                    po.IdCustomer = dataReader.GetInt32(1);
+                    po.Name = dataReader.GetString(2);
+                    po.AccountNumber = dataReader.GetString(3);
+
+                    paymentOptionList.Add(po);
+                }
+            }
+            _sqlConnection.Close();
+
+            return paymentOptionList;
+        }
 
         private void UpdateBangazon(string commandString)
         {

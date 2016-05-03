@@ -47,6 +47,17 @@ namespace Bangazon
             }
         }
 
+        public void ShowCustomerList()
+        {
+            Console.WriteLine("Which customer?");
+            var allCustomers = sqlData.GetCustomers();
+            foreach (var cust in allCustomers)
+            {
+                Console.WriteLine(cust.IdCustomer + ". " + cust.FirstName + " " + cust.LastName);
+            }
+            Console.WriteLine(">");
+        }
+
         public void CreateNewCustomer()
         {
             var allCustomers = sqlData.GetCustomers();
@@ -75,13 +86,7 @@ namespace Bangazon
 
         public void AddPaymentOption()
         {
-            Console.WriteLine("Which customer?");
-            var allCustomers = sqlData.GetCustomers();
-            foreach (var cust in allCustomers)
-            {
-                Console.WriteLine(cust.IdCustomer + ". " + cust.FirstName + " " + cust.LastName);
-            }
-            Console.WriteLine(">");
+            ShowCustomerList();
             PaymentOption po = new PaymentOption();
             var id = Console.ReadLine();
             po.IdCustomer = Convert.ToInt32(id);
@@ -126,6 +131,72 @@ namespace Bangazon
                 Console.WriteLine("Please add some products to your order first. Press any key to return to main menu.");
                 var goBack = Console.ReadKey();
                 if (goBack != null) ShowMenu();
+            }
+            else
+            {
+                double total = 0;
+                // get back cost of products for each Idproduct in cart
+                foreach (var item in Cart)
+                {
+                    if (item != 6)
+                    {
+                        var products = sqlData.GetSingleProduct(item);
+                        var price = Convert.ToDouble(products[0].Price);
+                        total += price;
+                    }
+
+                }
+                Console.Write("Your total is " + total + ". Ready to check out? \n[Y/N] >");
+                var readyToCheckout = Console.ReadLine();
+                if (readyToCheckout.ToUpper() == "N") ShowMenu();
+                else if (readyToCheckout.ToUpper() == "Y") // only allow checkout on "Y"
+                {
+                    // choose a customer
+                    CustomerOrder co = new CustomerOrder();
+                    ShowCustomerList();
+                    var stringId = Console.ReadLine();
+                    var id = Convert.ToInt32(stringId);
+
+                    // get payment options
+                    var paymentOptionsForCust = sqlData.GetPaymentOptions(id);
+                    foreach (var option in paymentOptionsForCust)
+                    {
+                        Console.WriteLine(option.IdPaymentOption + ". " + option.Name);
+                    }
+                    var stringSelectedPayment = Console.ReadLine();
+                    var selectedPayment = Convert.ToInt32(stringSelectedPayment);
+
+                    // get orders so far
+                    int orderId = 1;
+                    var currentOrders = sqlData.GetCustomerOrders();
+                    if (currentOrders.Count != 0) orderId = currentOrders.Last().IdCustomerOrder + 1;
+
+                    co.IdCustomerOrder = orderId;
+                    co.IdPaymentOption = selectedPayment;
+                    co.IdCustomer = id;
+                    co.OrderNumber = "arbitrary string";
+                    co.DateCreated = "5/1/2016";
+                    co.PaymentType = "Credit/Debit";
+                    co.Shipping = "USPS";
+
+                    sqlData.CreateCustomerOrder(co); // create order
+                    // add each order product to OrderProducts
+                    foreach (var item in Cart)
+                    {
+                        var currProducts = sqlData.GetOrderProducts();
+                        var count = 0;
+                        if (currProducts.Count != 0) count = currProducts.Last().IdOrderProducts;
+                        OrderProducts op = new OrderProducts();
+                        op.IdOrderProducts = count + 1;
+                        op.IdProduct = item;
+                        op.IdCustomerOrder = orderId;
+                        sqlData.CreateOrderProduct(op);
+                    }
+                    
+                    Console.WriteLine("Your order is complete! Press any key to return to main menu.");
+                    var x = Console.ReadLine();
+                    if (x != null) ShowMenu();
+                }
             }
         }
     }
