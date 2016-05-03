@@ -87,7 +87,9 @@ namespace Bangazon
             Console.WriteLine("Enter phone number \n>");
             cust.PhoneNumber = Console.ReadLine();
 
+            Console.WriteLine("Customer created!");
             sqlData.CreateCustomer(cust);
+            ShowMenu();
         }
 
         public void AddPaymentOption()
@@ -101,7 +103,9 @@ namespace Bangazon
             Console.Write("Enter account number \n>");
             po.AccountNumber = Console.ReadLine();
 
+            Console.WriteLine("Payment option created!");
             sqlData.CreatePaymentOption(po);
+            ShowMenu();
         }
 
         public void OrderProducts()
@@ -160,10 +164,11 @@ namespace Bangazon
                     CustomerOrder co = new CustomerOrder();
                     ShowCustomerList();
                     var stringId = Console.ReadLine();
-                    var id = Convert.ToInt32(stringId);
+                    var custId = Convert.ToInt32(stringId);
 
                     // get payment options
-                    var paymentOptionsForCust = sqlData.GetPaymentOptions(id);
+                    var paymentOptionsForCust = sqlData.GetPaymentOptions(custId);
+                    Console.WriteLine("Choose a payment option: \n>");
                     foreach (var option in paymentOptionsForCust)
                     {
                         Console.WriteLine(option.IdPaymentOption + ". " + option.Name);
@@ -178,7 +183,7 @@ namespace Bangazon
 
                     co.IdCustomerOrder = orderId;
                     co.IdPaymentOption = selectedPayment;
-                    co.IdCustomer = id;
+                    co.IdCustomer = custId;
                     co.OrderNumber = "arbitrary string";
                     co.DateCreated = "5/1/2016";
                     co.PaymentType = "Credit/Debit";
@@ -195,6 +200,7 @@ namespace Bangazon
                         op.IdOrderProducts = count + 1;
                         op.IdProduct = item;
                         op.IdCustomerOrder = orderId;
+                        op.IdCustomer = custId;
                         sqlData.CreateOrderProduct(op);
                     }
                     
@@ -214,8 +220,12 @@ namespace Bangazon
                 var prodSpecs = sqlData.GetSingleProduct(prod.IdProduct);
                 prod.Name = prodSpecs[0].Name;
                 prod.Price = prodSpecs[0].Price;
+
+                var custsPerProd = sqlData.GetCustomersPerProduct(prod.IdProduct);
+                prod.CustomerCount = custsPerProd[0].CustomerCount;
+
                 var total = Convert.ToDouble(prod.Price) * prod.Count;
-                Console.WriteLine(prod.Name + " bought " + prod.Count + " times for a total of $" + total + ".");
+                Console.WriteLine(prod.Name + " bought " + prod.Count + " times by " + prod.CustomerCount + " customers for a total of $" + total + ".");
             }
             Console.WriteLine("-> Press any key to return to main menu\n");
             var x = Console.ReadLine();

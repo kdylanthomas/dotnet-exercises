@@ -15,5 +15,6 @@ namespace Bangazon
         public string PaymentType { get; set; }   
         public string Shipping { get; set; }
         public int IdPaymentOption { get; set; }
+        public int Count { get; set; }
     }
 }

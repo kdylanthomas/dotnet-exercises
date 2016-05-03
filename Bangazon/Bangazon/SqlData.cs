@@ -12,6 +12,10 @@ namespace Bangazon
         private SqlConnection _sqlConnection = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" +
            "\"C:\\Users\\dylan\\Documents\\Visual Studio 2015\\Projects\\dotnet-exercises\\Bangazon\\Bangazon\\BangazonStore.mdf\";Integrated Security=True");
 
+        // ********************
+        // INSERT METHODS
+        // ********************
+
         public void CreateCustomer(Customer cust)
         {
             string command = String.Format("INSERT INTO Customer (FirstName, LastName, StreetAddress, City, StateProvince, PostalCode, PhoneNumber, IdCustomer) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}')", cust.FirstName, cust.LastName, cust.StreetAddress, cust.City, cust.State, cust.PostalCode, cust.PhoneNumber, cust.IdCustomer);
@@ -26,21 +30,22 @@ namespace Bangazon
 
         public void CreateOrderProduct(OrderProducts op)
         {
-            string command = String.Format("INSERT INTO OrderProducts (IdOrderProducts, IdProduct, IdCustomerOrder) VALUES ({0}, {1}, {2})", op.IdOrderProducts, op.IdProduct, op.IdCustomerOrder);
+            string command = String.Format("INSERT INTO OrderProducts (IdOrderProducts, IdProduct, IdCustomerOrder, IdCustomer) VALUES ({0}, {1}, {2}, {3})", op.IdOrderProducts, op.IdProduct, op.IdCustomerOrder, op.IdCustomer);
             UpdateBangazon(command);
         }
 
         public void CreateCustomerOrder(CustomerOrder co)
         {
             string command = String.Format("INSERT INTO CustomerOrder (IdCustomerOrder, OrderNumber, DateCreated, IdCustomer, PaymentType, Shipping, IdPaymentOption) VALUES ({0}, '{1}', '{2}', {3}, '{4}', '{5}', {6})", co.IdCustomerOrder, co.OrderNumber, co.DateCreated, co.IdCustomer, co.PaymentType, co.Shipping, co.IdPaymentOption);
-            Console.WriteLine(command);
-            Console.ReadLine();
             UpdateBangazon(command);
         }
 
+        // ********************
+        // GETTER METHODS
+        // ********************
 
         public List<Customer> GetCustomers()
-        { //create a list so we can have the data from the customer table
+        { 
             List<Customer> customerList = new List<Customer>();
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = System.Data.CommandType.Text;
@@ -48,7 +53,6 @@ namespace Bangazon
             cmd.Connection = _sqlConnection;
 
             _sqlConnection.Open();
-            //using will clean up everything... open and close connections
             using (SqlDataReader dataReader = cmd.ExecuteReader())
             {
                 while (dataReader.Read())
@@ -165,8 +169,6 @@ namespace Bangazon
             GROUP BY op.IdProduct;";
             cmd.Connection = _sqlConnection;
 
-            
-
             _sqlConnection.Open();
             using (SqlDataReader dataReader = cmd.ExecuteReader())
             {
@@ -183,6 +185,34 @@ namespace Bangazon
 
             return orderProductsList;
         }
+
+        public List<OrderProducts> GetCustomersPerProduct(int prodId)
+        {
+            List<OrderProducts> customersPerProductsList = new List<OrderProducts>();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.Text;
+            cmd.CommandText = String.Format(@"SELECT
+            COUNT(IdCustomer)
+            FROM OrderProducts
+            WHERE IdProduct = {0};", prodId);
+            cmd.Connection = _sqlConnection;
+
+            _sqlConnection.Open();
+            using (SqlDataReader dataReader = cmd.ExecuteReader())
+            {
+                while (dataReader.Read())
+                {
+                    OrderProducts op = new OrderProducts();
+                    op.CustomerCount = dataReader.GetInt32(0);
+
+                    customersPerProductsList.Add(op);
+                }
+            }
+            _sqlConnection.Close();
+
+            return customersPerProductsList;
+        }
+
 
         public List<CustomerOrder> GetCustomerOrders()
         {
