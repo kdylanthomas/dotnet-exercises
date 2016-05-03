@@ -12,5 +12,6 @@ namespace Bangazon
         public int IdCustomer { get; set; }
         public string Name { get; set; }
         public string AccountNumber { get; set; }
+        public int BangazonListId { get; set; }
     }
 }

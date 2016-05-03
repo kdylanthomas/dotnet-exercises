@@ -10,7 +10,7 @@ namespace Bangazon
     {
         public int IdCustomerOrder { get; set; }
         public string OrderNumber { get; set; }
-        public DateTime DateCreated { get; set; }
+        public string DateCreated { get; set; }
         public int IdCustomer { get; set; }
         public string PaymentType { get; set; }   
         public string Shipping { get; set; }
