@@ -18,25 +18,25 @@ namespace Bangazon
 
         public void CreateCustomer(Customer cust)
         {
-            string command = String.Format("INSERT INTO Customer (FirstName, LastName, StreetAddress, City, StateProvince, PostalCode, PhoneNumber, IdCustomer) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}')", cust.FirstName, cust.LastName, cust.StreetAddress, cust.City, cust.State, cust.PostalCode, cust.PhoneNumber, cust.IdCustomer);
+            string command = String.Format("INSERT INTO Customer (FirstName, LastName, StreetAddress, City, StateProvince, PostalCode, PhoneNumber) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}')", cust.FirstName, cust.LastName, cust.StreetAddress, cust.City, cust.State, cust.PostalCode, cust.PhoneNumber);
             UpdateBangazon(command);
         }
 
         public void CreatePaymentOption(PaymentOption po)
         {
-            string command = String.Format("INSERT INTO PaymentOption (IdPaymentOption, IdCustomer, Name, AccountNumber) VALUES ('{0}', '{1}', '{2}', '{3}')", 6, po.IdCustomer, po.Name, po.AccountNumber);
+            string command = String.Format("INSERT INTO PaymentOption (IdCustomer, Name, AccountNumber) VALUES ('{0}', '{1}', '{2}')",  po.IdCustomer, po.Name, po.AccountNumber);
             UpdateBangazon(command);
         }
 
         public void CreateOrderProduct(OrderProducts op)
         {
-            string command = String.Format("INSERT INTO OrderProducts (IdOrderProducts, IdProduct, IdCustomerOrder, IdCustomer) VALUES ({0}, {1}, {2}, {3})", op.IdOrderProducts, op.IdProduct, op.IdCustomerOrder, op.IdCustomer);
+            string command = String.Format("INSERT INTO OrderProducts (IdProduct, IdCustomerOrder, IdCustomer) VALUES ({0}, {1}, {2})", op.IdProduct, op.IdCustomerOrder, op.IdCustomer);
             UpdateBangazon(command);
         }
 
         public void CreateCustomerOrder(CustomerOrder co)
         {
-            string command = String.Format("INSERT INTO CustomerOrder (IdCustomerOrder, OrderNumber, DateCreated, IdCustomer, PaymentType, Shipping, IdPaymentOption) VALUES ({0}, '{1}', '{2}', {3}, '{4}', '{5}', {6})", co.IdCustomerOrder, co.OrderNumber, co.DateCreated, co.IdCustomer, co.PaymentType, co.Shipping, co.IdPaymentOption);
+            string command = String.Format("INSERT INTO CustomerOrder (OrderNumber, DateCreated, IdCustomer, PaymentType, Shipping, IdPaymentOption) VALUES ('{0}', '{1}', {2}, '{3}', '{4}', {5})", co.OrderNumber, co.DateCreated, co.IdCustomer, co.PaymentType, co.Shipping, co.IdPaymentOption);
             UpdateBangazon(command);
         }
 

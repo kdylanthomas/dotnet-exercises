@@ -66,12 +66,7 @@ namespace Bangazon
 
         public void CreateNewCustomer()
         {
-            var allCustomers = sqlData.GetCustomers();
-            var count = allCustomers.Last().IdCustomer;
-            Console.WriteLine(count);
-            Console.ReadLine();
             Customer cust = new Customer();
-            cust.IdCustomer = count + 1;
             Console.WriteLine("Enter first name \n>");
             cust.FirstName = Console.ReadLine();
             Console.WriteLine("Enter last name \n>");
@@ -102,7 +97,6 @@ namespace Bangazon
             po.Name = Console.ReadLine();
             Console.Write("Enter account number \n>");
             po.AccountNumber = Console.ReadLine();
-
             Console.WriteLine("Payment option created!");
             sqlData.CreatePaymentOption(po);
             ShowMenu();
@@ -176,12 +170,11 @@ namespace Bangazon
                     var stringSelectedPayment = Console.ReadLine();
                     var selectedPayment = Convert.ToInt32(stringSelectedPayment);
 
-                    // get orders so far
+                    // determine what orderId should be for orderProducts below
                     int orderId = 1;
                     var currentOrders = sqlData.GetCustomerOrders();
                     if (currentOrders.Count != 0) orderId = currentOrders.Last().IdCustomerOrder + 1;
 
-                    co.IdCustomerOrder = orderId;
                     co.IdPaymentOption = selectedPayment;
                     co.IdCustomer = custId;
                     co.OrderNumber = "arbitrary string";
@@ -193,11 +186,7 @@ namespace Bangazon
                     // add each order product to OrderProducts
                     foreach (var item in Cart)
                     {
-                        var currProducts = sqlData.GetOrderProducts();
-                        var count = 0;
-                        if (currProducts.Count != 0) count = currProducts.Last().IdOrderProducts;
                         OrderProducts op = new OrderProducts();
-                        op.IdOrderProducts = count + 1;
                         op.IdProduct = item;
                         op.IdCustomerOrder = orderId;
                         op.IdCustomer = custId;
