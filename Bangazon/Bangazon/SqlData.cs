@@ -157,44 +157,20 @@ namespace Bangazon
             return orderProductsList;
         }
 
-        public List<OrderProducts> GetOrderProductsCount()
+
+        public List<Product> GetProductPopularity()
         {
-            List<OrderProducts> orderProductsList = new List<OrderProducts>();
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandType = System.Data.CommandType.Text;
-            cmd.CommandText = @"SELECT
-            op.IdProduct,
-            COUNT(op.IdProduct)
-            FROM OrderProducts op
-            GROUP BY op.IdProduct;";
-            cmd.Connection = _sqlConnection;
-
-            _sqlConnection.Open();
-            using (SqlDataReader dataReader = cmd.ExecuteReader())
-            {
-                while (dataReader.Read())
-                {
-                    OrderProducts op = new OrderProducts();
-                    op.IdProduct = dataReader.GetInt32(0);
-                    op.Count = dataReader.GetInt32(1);
-                   
-                    orderProductsList.Add(op);
-                }
-            }
-            _sqlConnection.Close();
-
-            return orderProductsList;
-        }
-
-        public List<OrderProducts> GetCustomersPerProduct(int prodId)
-        {
-            List<OrderProducts> customersPerProductsList = new List<OrderProducts>();
+            List<Product> productsByPopularityList = new List<Product>();
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = System.Data.CommandType.Text;
             cmd.CommandText = String.Format(@"SELECT
-            COUNT(IdCustomer)
-            FROM OrderProducts
-            WHERE IdProduct = {0};", prodId);
+            p.Name,
+            p.Price,
+            COUNT(op.IdProduct),
+            COUNT(DISTINCT op.IdCustomer)
+            FROM Product p
+            INNER JOIN OrderProducts op ON p.IdProduct = op.IdProduct
+            GROUP BY p.Name, p.Price;");
             cmd.Connection = _sqlConnection;
 
             _sqlConnection.Open();
@@ -202,17 +178,18 @@ namespace Bangazon
             {
                 while (dataReader.Read())
                 {
-                    OrderProducts op = new OrderProducts();
-                    op.CustomerCount = dataReader.GetInt32(0);
-
-                    customersPerProductsList.Add(op);
+                    Product p = new Product();
+                    p.Name = dataReader.GetString(0);
+                    p.Price = dataReader.GetString(1);
+                    p.Count = dataReader.GetInt32(2);
+                    p.CustomerCount = dataReader.GetInt32(3);
+                    productsByPopularityList.Add(p);
                 }
             }
             _sqlConnection.Close();
 
-            return customersPerProductsList;
+            return productsByPopularityList;
         }
-
 
         public List<CustomerOrder> GetCustomerOrders()
         {
@@ -270,6 +247,10 @@ namespace Bangazon
 
             return paymentOptionList;
         }
+
+        // ********************
+        // MAIN UPDATE METHOD
+        // ********************
 
         private void UpdateBangazon(string commandString)
         {

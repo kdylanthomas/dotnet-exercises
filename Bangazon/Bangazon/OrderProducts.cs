@@ -12,9 +12,5 @@ namespace Bangazon
         public int IdProduct { get; set; }
         public int IdCustomerOrder { get; set; }
         public int IdCustomer { get; set; }
-        public int Count { get; set; }
-        public int CustomerCount { get; set; }
-        public string Price { get; set; }
-        public string Name { get; set; }
     }
 }

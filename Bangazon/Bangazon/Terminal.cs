@@ -122,10 +122,7 @@ namespace Bangazon
                 if (userInput != valueForExit) Cart.Add((int)userInput);
             }
 
-            if (userInput == valueForExit)
-            {
-                ShowMenu();
-            }
+            if (userInput == valueForExit) ShowMenu();
         }
 
         public void CompleteOrder()
@@ -183,8 +180,8 @@ namespace Bangazon
                     co.Shipping = "USPS";
 
                     sqlData.CreateCustomerOrder(co); // create order
-                    // add each order product to OrderProducts
-                    foreach (var item in Cart)
+                    
+                    foreach (var item in Cart) // add each order product to OrderProducts
                     {
                         OrderProducts op = new OrderProducts();
                         op.IdProduct = item;
@@ -202,17 +199,9 @@ namespace Bangazon
 
         public void SeeProductPopularity()
         {
-            var productsOrdered = sqlData.GetOrderProductsCount();
+            var productsOrdered = sqlData.GetProductPopularity();
             foreach (var prod in productsOrdered)
             {
-                // still needs number of unique customers
-                var prodSpecs = sqlData.GetSingleProduct(prod.IdProduct);
-                prod.Name = prodSpecs[0].Name;
-                prod.Price = prodSpecs[0].Price;
-
-                var custsPerProd = sqlData.GetCustomersPerProduct(prod.IdProduct);
-                prod.CustomerCount = custsPerProd[0].CustomerCount;
-
                 var total = Convert.ToDouble(prod.Price) * prod.Count;
                 Console.WriteLine(prod.Name + " bought " + prod.Count + " times by " + prod.CustomerCount + " customers for a total of $" + total + ".");
             }
