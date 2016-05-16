@@ -1,0 +1,14 @@
+﻿@model MVC_Intro.ViewModels.EmployeeDepartmentDetailViewModel
+<h2>List of Employees</h2>
+@using (Html.BeginForm("Index", "Employee"))
+{
+<table>
+    @foreach (var employee in Model.Employees)
+    {
+    <tr>
+        <td>@Html.DisplayFor(ModelItem => employee.Name)</td>
+        <td>@Html.DisplayFor(ModelItem => employee.DepartmentName)</td>
+    </tr>
+    }
+</table>
+}
