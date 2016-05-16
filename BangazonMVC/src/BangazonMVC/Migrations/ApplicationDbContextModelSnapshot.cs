@@ -75,7 +75,7 @@ namespace BangazonMVC.Migrations
 
                     b.Property<string>("LastName");
 
-                    b.Property<string>("PhoneNUmber");
+                    b.Property<string>("PhoneNumber");
 
                     b.Property<string>("PostalCode");
 

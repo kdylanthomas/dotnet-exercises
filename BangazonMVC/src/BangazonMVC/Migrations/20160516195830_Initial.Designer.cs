@@ -8,7 +8,7 @@ using BangazonMVC.Models;
 namespace BangazonMVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20160513153056_Initial")]
+    [Migration("20160516195830_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -76,7 +76,7 @@ namespace BangazonMVC.Migrations
 
                     b.Property<string>("LastName");
 
-                    b.Property<string>("PhoneNUmber");
+                    b.Property<string>("PhoneNumber");
 
                     b.Property<string>("PostalCode");
 

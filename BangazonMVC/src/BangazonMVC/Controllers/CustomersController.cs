@@ -6,11 +6,11 @@ using BangazonMVC.Models;
 
 namespace BangazonMVC.Controllers
 {
-    public class CustomerController : Controller
+    public class CustomersController : Controller
     {
         private ApplicationDbContext _context;
 
-        public CustomerController(ApplicationDbContext context)
+        public CustomersController(ApplicationDbContext context)
         {
             _context = context;    
         }

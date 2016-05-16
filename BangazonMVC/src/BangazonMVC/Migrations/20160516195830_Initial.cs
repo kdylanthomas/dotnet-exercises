@@ -23,7 +23,7 @@ namespace BangazonMVC.Migrations
                     City = table.Column<string>(nullable: true),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
-                    PhoneNUmber = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
                     PostalCode = table.Column<string>(nullable: true),
                     StateProvince = table.Column<string>(nullable: true),
                     StreetAddress = table.Column<string>(nullable: true)
