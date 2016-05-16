@@ -1,5 +1,9 @@
-﻿{
+{
+<<<<<<< HEAD
   "userSecretsId": "aspnet5-BangazonMVC-1f6a2029-4cba-4f32-9ac0-13b41fa2896d",
+=======
+  "userSecretsId": "aspnet5-BangazonMVC-e1104cd1-428a-4be4-800b-7d1012edf378",
+>>>>>>> e619d885fb72112c24f643800ea52f691927b137
   "version": "1.0.0-*",
   "compilationOptions": {
     "emitEntryPoint": true

@@ -6,7 +6,11 @@
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\DNX\Microsoft.DNX.Props" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup Label="Globals">
+<<<<<<< HEAD
     <ProjectGuid>29d06667-d2f9-4635-a60b-0c89894b55e0</ProjectGuid>
+=======
+    <ProjectGuid>975a0f67-cad0-4959-a42d-319cd4aed8f3</ProjectGuid>
+>>>>>>> e619d885fb72112c24f643800ea52f691927b137
     <RootNamespace>BangazonMVC</RootNamespace>
     <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">..\..\artifacts\obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>
     <OutputPath Condition="'$(OutputPath)'=='' ">..\..\artifacts\bin\$(MSBuildProjectName)\</OutputPath>

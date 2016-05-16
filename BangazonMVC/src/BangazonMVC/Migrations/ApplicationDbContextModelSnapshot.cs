@@ -1,4 +1,10 @@
 using System;
+<<<<<<< HEAD
+=======
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+>>>>>>> e619d885fb72112c24f643800ea52f691927b137
 using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Infrastructure;
 using Microsoft.Data.Entity.Metadata;
@@ -13,6 +19,7 @@ namespace BangazonMVC.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
+<<<<<<< HEAD
                 .HasAnnotation("ProductVersion", "7.0.0-rc1-16348")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -86,6 +93,11 @@ namespace BangazonMVC.Migrations
                     b.HasKey("Id");
                 });
 
+=======
+                .HasAnnotation("ProductVersion", "7.0.0-beta8")
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+>>>>>>> e619d885fb72112c24f643800ea52f691927b137
             modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityRole", b =>
                 {
                     b.Property<string>("Id");
@@ -116,8 +128,12 @@ namespace BangazonMVC.Migrations
 
                     b.Property<string>("ClaimValue");
 
+<<<<<<< HEAD
                     b.Property<string>("RoleId")
                         .IsRequired();
+=======
+                    b.Property<string>("RoleId");
+>>>>>>> e619d885fb72112c24f643800ea52f691927b137
 
                     b.HasKey("Id");
 
@@ -133,8 +149,12 @@ namespace BangazonMVC.Migrations
 
                     b.Property<string>("ClaimValue");
 
+<<<<<<< HEAD
                     b.Property<string>("UserId")
                         .IsRequired();
+=======
+                    b.Property<string>("UserId");
+>>>>>>> e619d885fb72112c24f643800ea52f691927b137
 
                     b.HasKey("Id");
 
@@ -149,8 +169,12 @@ namespace BangazonMVC.Migrations
 
                     b.Property<string>("ProviderDisplayName");
 
+<<<<<<< HEAD
                     b.Property<string>("UserId")
                         .IsRequired();
+=======
+                    b.Property<string>("UserId");
+>>>>>>> e619d885fb72112c24f643800ea52f691927b137
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -168,6 +192,57 @@ namespace BangazonMVC.Migrations
                     b.HasAnnotation("Relational:TableName", "AspNetUserRoles");
                 });
 
+<<<<<<< HEAD
+=======
+            modelBuilder.Entity("BangazonMVC.Models.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id");
+
+                    b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Email")
+                        .HasAnnotation("MaxLength", 256);
+
+                    b.Property<bool>("EmailConfirmed");
+
+                    b.Property<bool>("LockoutEnabled");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasAnnotation("MaxLength", 256);
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasAnnotation("MaxLength", 256);
+
+                    b.Property<string>("PasswordHash");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<string>("SecurityStamp");
+
+                    b.Property<bool>("TwoFactorEnabled");
+
+                    b.Property<string>("UserName")
+                        .HasAnnotation("MaxLength", 256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasAnnotation("Relational:Name", "EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .HasAnnotation("Relational:Name", "UserNameIndex");
+
+                    b.HasAnnotation("Relational:TableName", "AspNetUsers");
+                });
+
+>>>>>>> e619d885fb72112c24f643800ea52f691927b137
             modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNet.Identity.EntityFramework.IdentityRole")
