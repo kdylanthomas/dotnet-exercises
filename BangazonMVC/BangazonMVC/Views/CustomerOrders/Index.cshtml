@@ -1,0 +1,63 @@
+﻿@model IEnumerable<BangazonMVC.Models.CustomerOrder>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdCustomer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Shipping)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdPaymentOption)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateCreated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdCustomer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaymentType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Shipping)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdPaymentOption)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdCustomerOrder }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdCustomerOrder }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdCustomerOrder })
+        </td>
+    </tr>
+}
+
+</table>
