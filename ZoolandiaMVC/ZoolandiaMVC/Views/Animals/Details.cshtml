@@ -1,0 +1,58 @@
+﻿@model ZoolandiaMVC.Models.Animal
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Animal</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Age)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Age)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdHabitat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdHabitat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdGenus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdGenus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdSpecies)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdSpecies)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdAnimal }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

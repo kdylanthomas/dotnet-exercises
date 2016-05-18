@@ -1,0 +1,20 @@
+﻿@model ZoolandiaMVC.Models.Animal
+@{
+    ViewBag.Title = "Edit";
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.Label("Name");
+    @Html.EditorFor(model => model.Name);
+    @Html.Label("Age");
+    @Html.EditorFor(model => model.Age);
+
+    <input type="submit" value="Edit" />
+}
